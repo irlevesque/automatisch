@@ -2,7 +2,7 @@ import { TBeforeRequest } from '@automatisch/types';
 
 const buildApiUrl: TBeforeRequest = ($, requestConfig) => {
   if ($.auth.data?.subdomain) {
-      requestConfig.baseURL = `https://${$.auth.data.subdomain}.atlassian.net/rest/api/3` as string;
+      requestConfig.baseURL = `https://${$.auth.data.subdomain}.atlassian.net/rest/api/2` as string;
   }
 
   return requestConfig;

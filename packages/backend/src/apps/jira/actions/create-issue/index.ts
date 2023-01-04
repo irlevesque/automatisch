@@ -6,33 +6,83 @@ export default defineAction({
   description: 'Creates an Issue in Jira',
   arguments: [
     {
-      label: 'TBD',
-      key: 'tbd',
+      label: 'Summary',
+      key: 'summary',
       type: 'string' as const,
       required: false,
       description:
-        'TBD.',
-      variables: false,
-      value: null
+        'Summary of Issue.',
+      variables: true,
+    },
+    {
+      label: 'Description',
+      key: 'description',
+      type: 'string' as const,
+      required: false,
+      description:
+        'Description of Issue.',
+      variables: true,
+    },
+    {
+      label: 'Labels',
+      key: 'labels',
+      type: 'string' as const,
+      required: false,
+      description:
+        'Labels to associate with Issue. Comma separated.',
+      variables: true,
+    },
+    {
+      label: 'Project Key',
+      key: 'projectKey',
+      type: 'string' as const,
+      required: false,
+      description:
+        'Project Key (name)',
+      variables: true,
+    },
+    {
+      label: 'Reporter ID',
+      key: 'reporterId',
+      type: 'string' as const,
+      required: false,
+      description:
+        'Reporter ID',
+      variables: true,
+    },
+    {
+      label: 'Assignee ID',
+      key: 'assigneeId',
+      type: 'string' as const,
+      required: false,
+      description:
+        'Assignee ID',
+      variables: true,
     },
   ],
 
   async run($) {
-    const requestPath = `/TBD`;
+    const requestPath = `/issue`;
     const {
-      projectId,
-      sectionId,
-      labels,
-      content,
-      description
+      summary,
+      description,
+      projectKey,
+      reporterId,
+      assigneeId,
+      labels
     } = $.step.parameters;
 
+    const labelsArray = `${labels}`.split(',')
+
     const payload = {
-      content,
-      description: description || null,
-      project_id: projectId || null,
-      labels: labels || null,
-      section_id: sectionId || null,
+      fields: {
+        summary: summary,
+        project: {key: projectKey},
+        description: description,
+        labels: labelsArray || null,
+        reporter: {id: reporterId},
+        assignee: {id: assigneeId},
+      },
     }
 
     const response = await $.http.post(requestPath, payload);
