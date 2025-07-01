@@ -1,10 +1,10 @@
 version: '3.9'
 services:
   main:
-    image: 'automatischio/automatisch:${IMAGE_TAG}'
+    image: 'automatischio/automatisch:${IMAGE_TAG:-latest}'
     entrypoint: /automatisch/docker/compose-entrypoint.sh
     ports:
-      - '${PORT}'
+      - '${PORT:-7000}'
     depends_on:
       postgres:
         condition: service_healthy
@@ -15,7 +15,7 @@ services:
     volumes:
       - automatisch_storage:/automatisch/storage
   worker:
-    image: 'automatischio/automatisch:${IMAGE_TAG}'
+    image: 'automatischio/automatisch:${IMAGE_TAG:-latest}'
     entrypoint: /automatisch/docker/compose-entrypoint.sh
     depends_on:
       - main
