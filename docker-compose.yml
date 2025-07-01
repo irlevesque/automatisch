@@ -4,7 +4,7 @@ services:
     image: 'automatischio/automatisch:${IMAGE_TAG:-latest}'
     entrypoint: /automatisch/docker/compose-entrypoint.sh
     ports:
-      - '${PORT:-7000}'
+      - '${PORT:-7000}:${PORT:-7000}'
     depends_on:
       postgres:
         condition: service_healthy
