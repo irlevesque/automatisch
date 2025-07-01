@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   main:
-    image: 'automatischio/automatisch:latest'
+    image: 'automatischio/automatisch:${IMAGE_TAG}'
     entrypoint: /compose-entrypoint.sh
     ports:
       - '3000:3000'
@@ -23,10 +23,11 @@ services:
       - ENCRYPTION_KEY
       - WEBHOOK_SECRET_KEY
       - APP_SECRET_KEY
+      - IMAGE_TAG=latest
     volumes:
       - automatisch_storage:/automatisch/storage
   worker:
-    image: 'automatischio/automatisch:latest'
+    image: 'automatischio/automatisch:${IMAGE_TAG}'
     entrypoint: /compose-entrypoint.sh
     depends_on:
       - main
@@ -41,6 +42,7 @@ services:
       - WEBHOOK_SECRET_KEY
       - APP_SECRET_KEY
       - WORKER=true
+      - IMAGE_TAG=latest
     volumes:
       - automatisch_storage:/automatisch/storage
   postgres:
