@@ -2,7 +2,7 @@ version: '3.9'
 services:
   main:
     image: 'automatischio/automatisch:${IMAGE_TAG}'
-    entrypoint: /compose-entrypoint.sh
+    entrypoint: /automatisch/docker/compose-entrypoint.sh
     ports:
       - '${PORT}'
     depends_on:
@@ -16,7 +16,7 @@ services:
       - automatisch_storage:/automatisch/storage
   worker:
     image: 'automatischio/automatisch:${IMAGE_TAG}'
-    entrypoint: /compose-entrypoint.sh
+    entrypoint: /automatisch/docker/compose-entrypoint.sh
     depends_on:
       - main
     env_file: 
