@@ -12,19 +12,19 @@ services:
         condition: service_started
     env_file: stack.env
     environment:
-      - HOST=localhost
-      - PROTOCOL=http
-      - PORT=3000
-      - APP_ENV=production
-      - REDIS_HOST=redis
-      - POSTGRES_HOST=postgres
-      - POSTGRES_DATABASE=automatisch
-      - POSTGRES_USERNAME=automatisch_user
-      - POSTGRES_PASSWORD=automatisch_password
-      - ENCRYPTION_KEY
-      - WEBHOOK_SECRET_KEY
-      - APP_SECRET_KEY
-      - IMAGE_TAG=latest
+      - HOST=${HOST}
+      - PROTOCOL=${PROTOCOL}
+      - PORT=${PORT}
+      - APP_ENV=${APP_ENV}
+      - REDIS_HOST=${REDIS_HOST}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - WEBHOOK_SECRET_KEY=${WEBHOOK_SECRET_KEY}
+      - APP_SECRET_KEY=${APP_SECRET_KEY}
+      - IMAGE_TAG=${IMAGE_TAG}
     volumes:
       - automatisch_storage:/automatisch/storage
   worker:
@@ -34,26 +34,29 @@ services:
       - main
     env_file: stack.env
     environment:
-      - APP_ENV=production
-      - REDIS_HOST=redis
-      - POSTGRES_HOST=postgres
-      - POSTGRES_DATABASE=automatisch
-      - POSTGRES_USERNAME=automatisch_user
-      - POSTGRES_PASSWORD=automatisch_password
-      - ENCRYPTION_KEY
-      - WEBHOOK_SECRET_KEY
-      - APP_SECRET_KEY
+      - HOST=${HOST}
+      - PROTOCOL=${PROTOCOL}
+      - PORT=${PORT}
+      - APP_ENV=${APP_ENV}
+      - REDIS_HOST=${REDIS_HOST}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - WEBHOOK_SECRET_KEY=${WEBHOOK_SECRET_KEY}
+      - APP_SECRET_KEY=${APP_SECRET_KEY}
+      - IMAGE_TAG=${IMAGE_TAG}
       - WORKER=true
-      - IMAGE_TAG=latest
     volumes:
       - automatisch_storage:/automatisch/storage
   postgres:
     image: 'postgres:14.5'
     env_file: stack.env
     environment:
-      - POSTGRES_DB=automatisch
-      - POSTGRES_USER=automatisch_user
-      - POSTGRES_PASSWORD=automatisch_password
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
