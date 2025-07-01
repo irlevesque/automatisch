@@ -10,7 +10,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-    env_file: stack.env
+    env_file: ../stack.env
     environment:
       - HOST=${HOST}
       - PROTOCOL=${PROTOCOL}
@@ -32,7 +32,7 @@ services:
     entrypoint: /compose-entrypoint.sh
     depends_on:
       - main
-    env_file: stack.env
+    env_file: ../stack.env
     environment:
       - HOST=${HOST}
       - PROTOCOL=${PROTOCOL}
