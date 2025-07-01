@@ -10,21 +10,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-    env_file: ./stack.env
-    environment:
-      - HOST=${HOST}
-      - PROTOCOL=${PROTOCOL}
-      - PORT=${PORT}
-      - APP_ENV=${APP_ENV}
-      - REDIS_HOST=${REDIS_HOST}
-      - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
-      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
-      - WEBHOOK_SECRET_KEY=${WEBHOOK_SECRET_KEY}
-      - APP_SECRET_KEY=${APP_SECRET_KEY}
-      - IMAGE_TAG=${IMAGE_TAG}
+    env_file: 
+      - stack.env
     volumes:
       - automatisch_storage:/automatisch/storage
   worker:
@@ -32,21 +19,9 @@ services:
     entrypoint: /compose-entrypoint.sh
     depends_on:
       - main
-    env_file: ./stack.env
+    env_file: 
+      - stack.env
     environment:
-      - HOST=${HOST}
-      - PROTOCOL=${PROTOCOL}
-      - PORT=${PORT}
-      - APP_ENV=${APP_ENV}
-      - REDIS_HOST=${REDIS_HOST}
-      - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
-      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
-      - WEBHOOK_SECRET_KEY=${WEBHOOK_SECRET_KEY}
-      - APP_SECRET_KEY=${APP_SECRET_KEY}
-      - IMAGE_TAG=${IMAGE_TAG}
       - WORKER=true
     volumes:
       - automatisch_storage:/automatisch/storage
