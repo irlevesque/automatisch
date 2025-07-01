@@ -10,6 +10,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+    env_file: stack.env
     environment:
       - HOST=localhost
       - PROTOCOL=http
@@ -31,6 +32,7 @@ services:
     entrypoint: /compose-entrypoint.sh
     depends_on:
       - main
+    env_file: stack.env
     environment:
       - APP_ENV=production
       - REDIS_HOST=redis
@@ -47,6 +49,7 @@ services:
       - automatisch_storage:/automatisch/storage
   postgres:
     image: 'postgres:14.5'
+    env_file: stack.env
     environment:
       - POSTGRES_DB=automatisch
       - POSTGRES_USER=automatisch_user
