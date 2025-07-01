@@ -1,9 +1,7 @@
 version: '3.9'
 services:
   main:
-    build:
-      context: ./docker
-      dockerfile: Dockerfile.compose
+    image: 'automatischio/automatisch:latest'
     entrypoint: /compose-entrypoint.sh
     ports:
       - '3000:3000'
@@ -28,9 +26,7 @@ services:
     volumes:
       - automatisch_storage:/automatisch/storage
   worker:
-    build:
-      context: ./docker
-      dockerfile: Dockerfile.compose
+    image: 'automatischio/automatisch:latest'
     entrypoint: /compose-entrypoint.sh
     depends_on:
       - main
